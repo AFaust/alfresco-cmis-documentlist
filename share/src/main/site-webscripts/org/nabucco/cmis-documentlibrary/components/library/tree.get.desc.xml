@@ -1,0 +1,5 @@
+<webscript>
+  <shortname>CMIS Document List Tree</shortname>
+  <description>CMIS Document List: Tree Component</description>
+  <url>/nabucco/components/cmis-documentlist/tree</url>
+</webscript>

@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<template-instance>
+   <template-type>org/nabucco/cmis-documentlibrary</template-type>
+   <components>
+
+      <!-- Title -->
+      <component>
+         <region-id>title</region-id>
+         <url>/components/title/simple-title</url>
+         <properties>
+            <title>page.cmisDocumentList.title</title>
+         </properties>
+      </component>
+
+      <!-- Actions -->
+      <component>
+         <region-id>actions-common</region-id>
+         <url>/components/documentlibrary/actions-common</url>
+         <properties>
+            <dependencyGroup>documentlibrary</dependencyGroup>
+         </properties>
+      </component>
+
+      <component>
+         <region-id>documentlist_v2</region-id>
+         <url>/nabucco/components/cmis-documentlist/documentlist</url>
+         <properties>
+            <pagination>true</pagination>
+            <dependencyGroup>documentlibrary</dependencyGroup>
+         </properties>
+      </component>
+      
+      <!-- Tree -->
+      <component>
+         <region-id>tree</region-id>
+         <url>/nabucco/components/cmis-documentlist/tree</url>
+      </component>
+
+      <!-- Custom Code -->
+      <component>
+         <region-id>doclib-custom</region-id>
+         <url>/components/documentlibrary/doclib-custom</url>
+      </component>
+
+   </components>
+</template-instance>

@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<alfresco-config>
+
+    <config evaluator="string-compare" condition="CMISDocLib">
+        <metadata-templates>
+            <template id="default">
+                <line index="50" id="social" view="detailed"></line>
+            </template>
+        </metadata-templates>
+    </config>
+
+</alfresco-config>

@@ -1,0 +1,9 @@
+<webscript>
+    <shortname>CMIS Document List Tree</shortname>
+    <description>CMIS Document List Tree Data Webscript</description>
+    <url>/api/nabucco/cmis/treenode?path={path?}</url>
+    <format default="json">argument</format>
+    <authentication>user</authentication>
+    <transaction allow="readonly">required</transaction>
+    <lifecycle>internal</lifecycle>
+</webscript>

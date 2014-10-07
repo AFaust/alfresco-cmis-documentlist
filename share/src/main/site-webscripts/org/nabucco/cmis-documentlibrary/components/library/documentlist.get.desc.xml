@@ -1,0 +1,5 @@
+<webscript>
+    <shortname>CMIS Document List (YUI DocLib)</shortname>
+    <description>CMIS Document List: Combination of document list and toolbar</description>
+    <url>/nabucco/components/cmis-documentlist/documentlist</url>
+</webscript>

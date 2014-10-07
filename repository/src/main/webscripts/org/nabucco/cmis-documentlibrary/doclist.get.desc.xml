@@ -1,0 +1,9 @@
+<webscript>
+    <shortname>CMIS Document List</shortname>
+    <description>CMIS Document List Data Webscript</description>
+    <url>/api/nabucco/cmis/doclist?path={path?}</url>
+    <format default="json">argument</format>
+    <authentication>user</authentication>
+    <transaction allow="readonly">required</transaction>
+    <lifecycle>internal</lifecycle>
+</webscript>

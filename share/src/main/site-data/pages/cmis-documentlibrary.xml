@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<page>
+    <title>CMIS Document List</title>
+    <title-id>page.cmisDocumentList.title</title-id>
+    <description>Browse CMIS Document List</description>
+    <description-id>page.cmisDocumentList.description</description-id>
+    <template-instance>cmis-documentlibrary</template-instance>
+    <authentication>user</authentication>
+</page>

@@ -1,0 +1,6 @@
+<webscript>
+    <shortname>CMIS Document List - data web script</shortname>
+    <description>CMIS Document List Component: Data web script endpoint</description>
+    <url>/nabucco/components/cmis-documentlist/data</url>
+    <format default="json">argument</format>
+</webscript>

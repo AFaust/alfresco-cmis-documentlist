@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<extension>
+    <modules>
+        <module>
+            <id>${project.name}</id>
+            <version>${noSnapshotVersion}</version>
+            <auto-deploy>true</auto-deploy>
+
+            <components>
+
+            </components>
+
+            <customizations>
+
+                <customization>
+                    <targetPackageRoot>org.nabucco.cmis-documentlibrary.components</targetPackageRoot>
+                    <sourcePackageRoot>org.nabucco.cmis-documentlibrary.customizations.components</sourcePackageRoot>
+                </customization>
+
+            </customizations>
+
+        </module>
+    </modules>
+</extension>
