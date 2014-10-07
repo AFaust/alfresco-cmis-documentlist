@@ -68,7 +68,9 @@ public class RhinoCMISObjectImpl extends BaseCMISObject implements Scopeable
     public Scriptable getPaths()
     {
         final String[] paths = this.getPathsImpl();
-        return Context.getCurrentContext().newArray(this.scope, paths);
+        final Object[] pathObj = new Object[paths.length];
+        System.arraycopy(paths, 0, pathObj, 0, paths.length);
+        return Context.getCurrentContext().newArray(this.scope, pathObj);
     }
 
     /**
@@ -78,7 +80,9 @@ public class RhinoCMISObjectImpl extends BaseCMISObject implements Scopeable
     public Scriptable getParents()
     {
         final ScriptCMISObject[] parents = this.getParentsImpl();
-        return Context.getCurrentContext().newArray(this.scope, parents);
+        final Object[] parentsObj = new Object[parents.length];
+        System.arraycopy(parents, 0, parentsObj, 0, parents.length);
+        return Context.getCurrentContext().newArray(this.scope, parentsObj);
     }
 
     /**
@@ -88,7 +92,9 @@ public class RhinoCMISObjectImpl extends BaseCMISObject implements Scopeable
     public Scriptable getChildren(final boolean files, final boolean folders, final int offset, final int max, final String... ignoreTypes)
     {
         final ScriptCMISObject[] children = this.getChildrenImpl(files, folders, offset, max, ignoreTypes);
-        return Context.getCurrentContext().newArray(this.scope, children);
+        final Object[] childrenObj = new Object[children.length];
+        System.arraycopy(children, 0, childrenObj, 0, children.length);
+        return Context.getCurrentContext().newArray(this.scope, childrenObj);
     }
 
     /**
@@ -99,7 +105,9 @@ public class RhinoCMISObjectImpl extends BaseCMISObject implements Scopeable
             final ScriptCMISOperationContext context, final String... ignoreTypes)
     {
         final ScriptCMISObject[] children = this.getChildrenImpl(files, folders, offset, max, context, ignoreTypes);
-        return Context.getCurrentContext().newArray(this.scope, children);
+        final Object[] childrenObj = new Object[children.length];
+        System.arraycopy(children, 0, childrenObj, 0, children.length);
+        return Context.getCurrentContext().newArray(this.scope, childrenObj);
     }
 
     /**
@@ -109,7 +117,9 @@ public class RhinoCMISObjectImpl extends BaseCMISObject implements Scopeable
     public Scriptable getAspects()
     {
         final String[] aspects = this.getAspectsImpl();
-        return Context.getCurrentContext().newArray(this.scope, aspects);
+        final Object[] aspectsObj = new Object[aspects.length];
+        System.arraycopy(aspects, 0, aspectsObj, 0, aspects.length);
+        return Context.getCurrentContext().newArray(this.scope, aspectsObj);
     }
 
     /**
@@ -119,7 +129,9 @@ public class RhinoCMISObjectImpl extends BaseCMISObject implements Scopeable
     public Scriptable getPermissions()
     {
         final String[] permissions = this.getPermissionsImpl(false);
-        return Context.getCurrentContext().newArray(this.scope, permissions);
+        final Object[] permissionsObj = new Object[permissions.length];
+        System.arraycopy(permissions, 0, permissionsObj, 0, permissions.length);
+        return Context.getCurrentContext().newArray(this.scope, permissionsObj);
     }
 
     /**
@@ -129,7 +141,9 @@ public class RhinoCMISObjectImpl extends BaseCMISObject implements Scopeable
     public Scriptable getDirectPermissions()
     {
         final String[] permissions = this.getPermissionsImpl(true);
-        return Context.getCurrentContext().newArray(this.scope, permissions);
+        final Object[] permissionsObj = new Object[permissions.length];
+        System.arraycopy(permissions, 0, permissionsObj, 0, permissions.length);
+        return Context.getCurrentContext().newArray(this.scope, permissionsObj);
     }
 
     /**

@@ -5,9 +5,10 @@
     <!-- Note: All beans should be prefixed ${project.artifactId} in their ID in general -->
     <!-- Exceptions: service beans (unique name) and beans with name conventions (e.g. web scripts) -->
 
+<!-- 
     <bean id="webscript.org.nabucco.cmis-documentlibrary.doclist.get" class="${basePackage}.web.scripts.CMISDocumentListGet" parent="webscript" />
 
     <bean id="webscript.org.nabucco.cmis-documentlibrary.treenode.get" class="${basePackage}.web.scripts.CMISDocumentListTreeNodeGet" parent="webscript" />
-
+ -->
 
 </beans>

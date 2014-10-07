@@ -16,7 +16,7 @@
         <messageBundle.rootId>${messageBundle.rootPath}</messageBundle.rootId>
         <basePackage>org.nabucco.alfresco.cmis.documentlist.repo</basePackage>
         
-        <webscript.jslint.custom.root.objects>Evaluator</webscript.jslint.custom.root.objects>
+        <webscript.jslint.custom.root.objects>Evaluator,cmisConnector</webscript.jslint.custom.root.objects>
         <webscript.jslint.custom.root.values>dateFormatter,paging,nodes,parent,resultsTrimmed</webscript.jslint.custom.root.values>
 
     </properties>

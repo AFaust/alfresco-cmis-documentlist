@@ -2,29 +2,57 @@ importScript("classpath", "/alfresco/templates/webscripts/org/nabucco/cmis-docum
 
 function main()
 {
-    var idx, max, nodeIn, nodesOut = [], nodeOut, result, parentNode;
+    var skipCount, max, cmisSession, parent, children, node, items, idx, length, result;
 
-    parentNode = Evaluator.run(parent, true);
-    
-    for (idx = 0, max = nodes.size !== undefined ? nodes.size() : nodes.length; idx < max; idx++)
+    skipCount = parseInt(args.skipCount || "0", 10);
+    max = parseInt(args.max || "50", 10);
+
+    cmisSession = cmisConnector.connect("cmis-alfresco-test");
+
+    if (args.path !== null)
     {
-        nodeIn = nodes.size !== undefined ? nodes.get(idx) : nodes[idx];
-        nodeOut = Evaluator.run(nodeIn, false);
+        parent = cmisSession.getObjectByPath(String(args.path).trim());
+    }
+    else
+    {
+        parent = cmisSession.getRootFolder();
+    }
 
-        if (nodeOut !== null)
+    children = parent.getChildren(skipCount, max);
+
+    items = [];
+
+    for (idx = 0, length = children.length; idx < length; idx++)
+    {
+        node = Evaluator.run(children[idx], false);
+
+        if (node !== null)
         {
-            nodesOut.push(nodeOut);
-            nodeOut.parent = parentNode;
+            if (children[idx].parent !== null)
+            {
+                node.parent = Evaluator.run(children[idx].parent, true);
+                node.location =
+                {
+                    file : children[idx].properties["cm:name"],
+                    path : children[idx].parent.path,
+                    parent : children[idx].parent.id
+                };
+            }
+            items.push(node);
         }
     }
 
     result =
     {
-        paging : paging,
+        paging :
+        {
+            totalRecords : items.length,
+            startIndex : skipCount
+        },
         itemCount : {
 
         },
-        items : nodesOut
+        items : items
     };
 
     return result;
