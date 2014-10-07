@@ -14,9 +14,19 @@
  */
 package org.nabucco.alfresco.cmis.documentlist.repo.jscript.impl;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Map;
+
+import org.alfresco.repo.jscript.NativeMap;
 import org.alfresco.repo.jscript.Scopeable;
+import org.alfresco.util.ParameterCheck;
 import org.apache.chemistry.opencmis.client.api.CmisObject;
+import org.apache.chemistry.opencmis.commons.definitions.PropertyDefinition;
 import org.mozilla.javascript.Context;
+import org.mozilla.javascript.ScriptRuntime;
 import org.mozilla.javascript.Scriptable;
 import org.nabucco.alfresco.cmis.documentlist.repo.jscript.ScriptCMISObject;
 import org.nabucco.alfresco.cmis.documentlist.repo.jscript.ScriptCMISOperationContext;
@@ -43,6 +53,12 @@ public class RhinoCMISObjectImpl extends BaseCMISObject implements Scopeable
     public void setScope(final Scriptable scope)
     {
         this.scope = scope;
+    }
+
+    public Scriptable getProperties()
+    {
+        final Map<Object, Object> propertiesImpl = this.getPropertiesImpl();
+        return new NativeMap(this.scope, propertiesImpl);
     }
 
     /**
@@ -125,4 +141,39 @@ public class RhinoCMISObjectImpl extends BaseCMISObject implements Scopeable
         return new RhinoCMISObjectImpl(this.repository, object);
     }
 
+    @SuppressWarnings("fallthrough")
+    protected Object toScriptValue(final Object value, final PropertyDefinition<?> definition)
+    {
+        ParameterCheck.mandatory("value", value);
+        ParameterCheck.mandatory("definition", definition);
+
+        final Object result;
+
+        switch (definition.getPropertyType())
+        {
+        case DATETIME:
+            if (!(value instanceof GregorianCalendar))
+                throw new IllegalArgumentException("CMIS date time should by definition be GregorionCalendar");
+            final Date actualDate = ((GregorianCalendar) value).getTime();
+
+            result = ScriptRuntime.newObject(Context.getCurrentContext(), this.scope, "Date",
+                    new Object[] { Long.valueOf(actualDate.getTime()) });
+
+            break;
+        case INTEGER:
+            if (!(value instanceof BigInteger))
+                throw new IllegalArgumentException("CMIS integer should by definition be BigInteger");
+            result = Long.valueOf(((BigInteger) value).longValue());
+            break;
+        case DECIMAL:
+            if (!(value instanceof BigDecimal))
+                throw new IllegalArgumentException("CMIS decimal should by definition be BigDecimal");
+            result = Double.valueOf(((BigInteger) value).doubleValue());
+            break;
+        default:
+            result = value;
+        }
+
+        return result;
+    }
 }

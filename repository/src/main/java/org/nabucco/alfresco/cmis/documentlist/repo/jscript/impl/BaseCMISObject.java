@@ -16,8 +16,11 @@ package org.nabucco.alfresco.cmis.documentlist.repo.jscript.impl;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
 import org.alfresco.service.cmr.repository.datatype.DefaultTypeConverter;
 import org.alfresco.util.ParameterCheck;
 import org.apache.chemistry.opencmis.client.api.CmisObject;
@@ -28,10 +31,13 @@ import org.apache.chemistry.opencmis.client.api.Item;
 import org.apache.chemistry.opencmis.client.api.ItemIterable;
 import org.apache.chemistry.opencmis.client.api.ObjectType;
 import org.apache.chemistry.opencmis.client.api.OperationContext;
+import org.apache.chemistry.opencmis.client.api.Property;
 import org.apache.chemistry.opencmis.client.api.SecondaryType;
 import org.apache.chemistry.opencmis.commons.data.Ace;
 import org.apache.chemistry.opencmis.commons.data.Acl;
+import org.apache.chemistry.opencmis.commons.definitions.PropertyDefinition;
 import org.apache.chemistry.opencmis.commons.enums.BaseTypeId;
+import org.apache.chemistry.opencmis.commons.enums.Cardinality;
 import org.nabucco.alfresco.cmis.documentlist.repo.jscript.ScriptCMISContent;
 import org.nabucco.alfresco.cmis.documentlist.repo.jscript.ScriptCMISObject;
 import org.nabucco.alfresco.cmis.documentlist.repo.jscript.ScriptCMISOperationContext;
@@ -46,6 +52,8 @@ public abstract class BaseCMISObject implements ScriptCMISObject
     protected CmisObject object;
 
     protected final ScriptCMISRepository repository;
+
+    protected transient Map<Object, Object> cachedProperties;
 
     public BaseCMISObject(final ScriptCMISRepository repository, final CmisObject object)
     {
@@ -247,16 +255,6 @@ public abstract class BaseCMISObject implements ScriptCMISObject
             final ScriptCMISOperationContext context)
     {
         return this.getChildren(files, folders, offset, max, context, new String[0]);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getProperties()
-    {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     /**
@@ -531,6 +529,51 @@ public abstract class BaseCMISObject implements ScriptCMISObject
 
         return result;
     }
+
+    public Map<Object, Object> getPropertiesImpl()
+    {
+        if (this.cachedProperties == null)
+        {
+            final List<Property<?>> properties = this.object.getProperties();
+
+            final Map<Object, Object> simpleProperties = new HashMap<Object, Object>();
+
+            for (final Property<?> property : properties)
+            {
+                final PropertyDefinition<?> definition = property.getDefinition();
+
+                if (definition.getCardinality() == Cardinality.SINGLE)
+                {
+                    final Object scriptValue = this.toScriptValue(property.getValue(), definition);
+                    simpleProperties.put(property.getId(), scriptValue);
+                }
+                else
+                {
+                    final List<Object> values = new ArrayList<Object>();
+
+                    final List<?> cmisValues = property.getValues();
+                    for (final Object value : cmisValues)
+                    {
+                        final Object scriptValue = this.toScriptValue(value, definition);
+                        values.add(scriptValue);
+                    }
+
+                    simpleProperties.put(property.getId(), values);
+                }
+            }
+
+            // mirror properties
+            simpleProperties.put("cm:name", this.object.getName());
+            simpleProperties.put("cm:description", this.object.getDescription());
+            simpleProperties.put("cm:creator", this.object.getCreatedBy());
+            simpleProperties.put("cm:modifier", this.object.getLastModifiedBy());
+
+            this.cachedProperties = simpleProperties;
+        }
+        return this.cachedProperties;
+    }
+
+    protected abstract Object toScriptValue(Object value, PropertyDefinition<?> definition);
 
     protected abstract ScriptCMISObject toScriptCMISObject(CmisObject object);
 }

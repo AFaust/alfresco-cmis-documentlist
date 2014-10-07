@@ -29,6 +29,13 @@
             <version>${alfresco.version}</version>
             <scope>provided</scope>
         </dependency>
+        
+        <dependency>
+            <groupId>org.nabucco.alfresco</groupId>
+            <artifactId>org.nabucco.alfresco.enhScriptEnv.repo</artifactId>
+            <version>0.0.1.1</version>
+            <scope>provided</scope>
+        </dependency>
 
     </dependencies>
 

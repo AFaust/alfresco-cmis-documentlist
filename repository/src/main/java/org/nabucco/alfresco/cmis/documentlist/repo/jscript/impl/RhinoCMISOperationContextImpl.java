@@ -9,7 +9,7 @@ import org.alfresco.util.Pair;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 
-public class RhinoCMISOperationContext extends BaseCMISOperationContext implements Scopeable
+public class RhinoCMISOperationContextImpl extends BaseCMISOperationContext implements Scopeable
 {
     protected Scriptable scope;
     public static String SORT_PROPERTY = "property";
