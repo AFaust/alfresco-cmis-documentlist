@@ -117,9 +117,9 @@ var Evaluator =
         secondaryTypes = node.cmisObject.secondaryTypes;
         if (secondaryTypes !== null)
         {
-            for (idx = 0, max = secondaryTypes.size(); idx < max; idx++)
+            for (idx = 0, max = secondaryTypes.length; idx < max; idx++)
             {
-                nodeData.aspects.push(secondaryTypes.get(idx).id);
+                nodeData.aspects.push(secondaryTypes[idx].id);
             }
         }
 
@@ -167,17 +167,17 @@ var Evaluator =
             iso8601 : dateFormatter.format(node.cmisObject.lastModificationDate.time)
         };
 
-        for (idx = 0, max = node.cmisObject.properties.size(); idx < max; idx++)
+        for (idx = 0, max = node.cmisObject.properties.length; idx < max; idx++)
         {
-            property = node.cmisObject.properties.get(idx);
+            property = node.cmisObject.properties[idx];
             propertyValue = property.getValue();
 
             if (property.isMultiValued())
             {
                 propertyData = [];
-                for (propIdx = 0, propMax = propertyValue.size(); propIdx < propMax; propIdx++)
+                for (propIdx = 0, propMax = propertyValue.length; propIdx < propMax; propIdx++)
                 {
-                    propertyValueElement = propertyValue.get(propIdx);
+                    propertyValueElement = propertyValue[propIdx];
                     propertyData.push(Evaluator.convertPropertyValue(property, propertyValueElement));
                 }
             }
