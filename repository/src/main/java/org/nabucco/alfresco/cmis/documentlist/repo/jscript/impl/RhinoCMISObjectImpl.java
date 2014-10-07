@@ -49,7 +49,7 @@ public class RhinoCMISObjectImpl extends BaseCMISObject implements Scopeable
      * {@inheritDoc}
      */
     @Override
-    public Object getPaths()
+    public Scriptable getPaths()
     {
         final String[] paths = this.getPathsImpl();
         return Context.getCurrentContext().newArray(this.scope, paths);
@@ -59,7 +59,7 @@ public class RhinoCMISObjectImpl extends BaseCMISObject implements Scopeable
      * {@inheritDoc}
      */
     @Override
-    public Object getParents()
+    public Scriptable getParents()
     {
         final ScriptCMISObject[] parents = this.getParentsImpl();
         return Context.getCurrentContext().newArray(this.scope, parents);
@@ -69,7 +69,7 @@ public class RhinoCMISObjectImpl extends BaseCMISObject implements Scopeable
      * {@inheritDoc}
      */
     @Override
-    public Object getChildren(final boolean files, final boolean folders, final int offset, final int max, final String... ignoreTypes)
+    public Scriptable getChildren(final boolean files, final boolean folders, final int offset, final int max, final String... ignoreTypes)
     {
         final ScriptCMISObject[] children = this.getChildrenImpl(files, folders, offset, max, ignoreTypes);
         return Context.getCurrentContext().newArray(this.scope, children);
@@ -79,7 +79,7 @@ public class RhinoCMISObjectImpl extends BaseCMISObject implements Scopeable
      * {@inheritDoc}
      */
     @Override
-    public Object getChildren(final boolean files, final boolean folders, final int offset, final int max,
+    public Scriptable getChildren(final boolean files, final boolean folders, final int offset, final int max,
             final ScriptCMISOperationContext context, final String... ignoreTypes)
     {
         final ScriptCMISObject[] children = this.getChildrenImpl(files, folders, offset, max, context, ignoreTypes);
@@ -90,7 +90,7 @@ public class RhinoCMISObjectImpl extends BaseCMISObject implements Scopeable
      * {@inheritDoc}
      */
     @Override
-    public Object getAspects()
+    public Scriptable getAspects()
     {
         final String[] aspects = this.getAspectsImpl();
         return Context.getCurrentContext().newArray(this.scope, aspects);
@@ -100,7 +100,7 @@ public class RhinoCMISObjectImpl extends BaseCMISObject implements Scopeable
      * {@inheritDoc}
      */
     @Override
-    public Object getPermissions()
+    public Scriptable getPermissions()
     {
         final String[] permissions = this.getPermissionsImpl(false);
         return Context.getCurrentContext().newArray(this.scope, permissions);
@@ -110,7 +110,7 @@ public class RhinoCMISObjectImpl extends BaseCMISObject implements Scopeable
      * {@inheritDoc}
      */
     @Override
-    public Object getDirectPermissions()
+    public Scriptable getDirectPermissions()
     {
         final String[] permissions = this.getPermissionsImpl(true);
         return Context.getCurrentContext().newArray(this.scope, permissions);
