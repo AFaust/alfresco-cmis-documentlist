@@ -24,7 +24,5 @@ public interface ScriptCMISOperationContext
 
     void addSort(String field, boolean ascending);
 
-    String getCMISOrderByClause();
-
     // TODO add other settings here
 }

@@ -38,13 +38,31 @@ public interface ScriptCMISObject
 
     Object getChildren();
 
+    Object getChildren(ScriptCMISOperationContext context);
+
+    Object getChildren(int offset, int max);
+
+    Object getChildren(int offset, int max, ScriptCMISOperationContext context);
+
+    Object getChildren(int offset, int max, String... ignoreTypes);
+
+    Object getChildren(int offset, int max, ScriptCMISOperationContext context, String... ignoreTypes);
+
     Object getChildren(boolean files, boolean folders);
+
+    Object getChildren(boolean files, boolean folders, ScriptCMISOperationContext context);
 
     Object getChildren(boolean files, boolean folders, String... ignoreTypes);
 
+    Object getChildren(boolean files, boolean folders, ScriptCMISOperationContext context, String... ignoreTypes);
+
     Object getChildren(boolean files, boolean folders, int offset, int max);
 
+    Object getChildren(boolean files, boolean folders, int offset, int max, String... ignoreTypes);
+
     Object getChildren(boolean files, boolean folders, int offset, int max, ScriptCMISOperationContext context);
+
+    Object getChildren(boolean files, boolean folders, int offset, int max, ScriptCMISOperationContext context, String... ignoreTypes);
 
     Object getProperties();
 
@@ -65,10 +83,6 @@ public interface ScriptCMISObject
     Object getDirectPermissions();
 
     ScriptCMISContent getContent();
-
-    ScriptCMISContent getContent(String contentId);
-
-    Object getContentIds();
 
     String getDownloadUrl();
 
